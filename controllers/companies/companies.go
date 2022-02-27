@@ -16,7 +16,7 @@ func (c *CompaniesController) ListCompanies() {
 	o := orm.NewOrm()
 	var companies []*models.Company
 
-	num, err := o.
+	count, err := o.
 		QueryTable(new(models.Company)).
 		OrderBy("Id").
 		Filter("Alive", true).
@@ -28,7 +28,7 @@ func (c *CompaniesController) ListCompanies() {
 		c.Data["json"] = CompaniesResponseJson{
 			Items: companies,
 			Meta: MetaJson{
-				ItemsCount: num,
+				ItemsCount: count,
 			},
 		}
 		c.ServeJSON()
@@ -38,4 +38,28 @@ func (c *CompaniesController) ListCompanies() {
 }
 
 func (c *CompaniesController) ListMachines() {
+	companyId := c.Ctx.Input.Param(":companyId")
+
+	o := orm.NewOrm()
+	var machines []*models.Machine
+
+	count, err := o.
+		QueryTable(new(models.Machine)).
+		OrderBy("Id").
+		Filter("Alive", true).
+		Filter("Owner", companyId).
+		RelatedSel("AuthorInfo", "AuthorInfo__CreatedBy", "AuthorInfo__ModifiedBy", "AuthorInfo__ModifiedBy").
+		All(&machines)
+
+	if err == nil {
+		c.Data["json"] = MachinesResponseJson{
+			Items: machines,
+			Meta: MetaJson{
+				ItemsCount: count,
+			},
+		}
+		c.ServeJSON()
+	} else {
+		c.CustomAbort(500, fmt.Sprintf("Internal server error: %s", err))
+	}
 }

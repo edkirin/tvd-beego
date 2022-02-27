@@ -10,6 +10,6 @@ import (
 func init() {
 	// beego.Router("/", &controllers.MainController{})
 	beego.Router("/companies", &companies.CompaniesController{}, "get:ListCompanies")
-	beego.Router("/companies/:id:int/machines", &companies.CompaniesController{}, "get:ListMachines")
+	beego.Router("/companies/:companyId:int/machines", &companies.CompaniesController{}, "get:ListMachines")
 	beego.Router("/machines", &machines.MachinesController{})
 }

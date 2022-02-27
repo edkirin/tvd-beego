@@ -5,11 +5,15 @@ import (
 )
 
 type Company struct {
-	Id      int            `orm:"pk" json:"id"`
-	Alive   bool           `json:"alive"`
-	Caption string         `orm:"size(100)" json:"caption"`
-	Email   string         `orm:"size(100)" json:"email"`
-	Access  *CompanyAccess `orm:"rel(one)" json:"access"`
+	Id         int            `orm:"pk" json:"id"`
+	Alive      bool           `json:"alive"`
+	Caption    string         `orm:"size(100)" json:"caption"`
+	Email      string         `orm:"size(100)" json:"email"`
+	Address    string         `orm:"size(100)" json:"address"`
+	City       string         `orm:"size(100)" json:"city"`
+	Phone      string         `orm:"size(100)" json:"phone"`
+	Access     *CompanyAccess `orm:"rel(one)" json:"access"`
+	AuthorInfo *AuthorInfo    `orm:"rel(fk)"`
 }
 
 type CompanyAccess struct {

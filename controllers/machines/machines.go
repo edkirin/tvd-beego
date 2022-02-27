@@ -30,7 +30,7 @@ func (c *MachinesController) Get() {
 		QueryTable(new(models.Machine)).
 		OrderBy("Id").
 		Filter("Alive", true).
-		RelatedSel().
+		RelatedSel("AuthorInfo", "AuthorInfo__CreatedBy", "AuthorInfo__ModifiedBy", "AuthorInfo__ModifiedBy").
 		All(&machines)
 
 	if err == nil {

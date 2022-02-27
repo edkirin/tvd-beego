@@ -5,10 +5,12 @@ import (
 )
 
 type Machine struct {
-	Id      int      `orm:"pk" json:"id"`
-	Alive   bool     `json:"alive"`
-	Caption string   `json:"caption"`
-	Owner   *Company `orm:"rel(fk)"`
+	Id         int         `orm:"pk" json:"id"`
+	Alive      bool        `json:"alive"`
+	Caption    string      `json:"caption"`
+	Owner      *Company    `orm:"rel(fk)" json:"-"`
+	Warehouse  *Warehouse  `orm:"rel(fk)"`
+	AuthorInfo *AuthorInfo `orm:"rel(fk)"`
 }
 
 func (u *Machine) TableName() string {
