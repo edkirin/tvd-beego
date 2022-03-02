@@ -14,7 +14,7 @@ func init() {
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 	orm.RegisterDataBase("default", "postgres",
 		"user=televend password=televend host=localhost port=5432 dbname=televend sslmode=disable")
-	orm.Debug = true
+	orm.Debug = false
 }
 
 func main() {

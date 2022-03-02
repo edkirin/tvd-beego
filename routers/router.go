@@ -1,6 +1,7 @@
 package routers
 
 import (
+	common "tvd-beego/controllers/common"
 	companies "tvd-beego/controllers/companies"
 	machines "tvd-beego/controllers/machines"
 
@@ -9,6 +10,7 @@ import (
 
 func init() {
 	// beego.Router("/", &controllers.MainController{})
+	beego.Router("/ping", &common.CommonController{})
 	beego.Router("/companies", &companies.CompaniesController{}, "get:ListCompanies")
 	beego.Router("/companies/:companyId:int/machines", &companies.CompaniesController{}, "get:ListMachines")
 	beego.Router("/machines", &machines.MachinesController{})
